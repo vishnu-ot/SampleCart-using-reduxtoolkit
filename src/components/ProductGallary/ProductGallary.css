@@ -1,3 +1,9 @@
 .product-gallary {
+  border: 1px solid black;
+ width: auto;
+  
   display: flex;
+  flex-wrap: wrap;
+
+  /* max-width: 100%; */
 }
