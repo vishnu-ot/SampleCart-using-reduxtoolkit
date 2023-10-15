@@ -13,8 +13,8 @@ function App() {
     <>
       <Header />
       <div className="container">
-        <ProductGallary cart={cart} setCart={setCart} />
-        <Cart cart={cart} setCart={setCart} />
+        <ProductGallary />
+        <Cart />
       </div>
     </>
   );

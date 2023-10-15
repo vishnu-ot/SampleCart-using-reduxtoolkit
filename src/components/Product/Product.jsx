@@ -1,53 +1,16 @@
 import React from "react";
+import { addToCart, addProductsToCart } from "../../redux/cart";
+import { useDispatch, useSelector } from "react-redux";
 import "./Product.css";
-function Product({ id, title, image, cart, setCart, price }) {
-  //  addToCartHandler method is used to add a product to cart for the first time
-  const addToCartHandler = () => {
-    let newItem = {
-      id,
-      title,
-      image,
-      price,
-      count: 1,
-    };
-    setCart((prev) => {
-      return [...prev, newItem];
-    });
-  };
+function Product({ product }) {
+  const { id, title, image, price } = product;
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart);
 
   // isInCart method to check whether the particular product is present in cart or not
   const isInCart = (id) => {
     return !!cart?.find((item) => item.id === id);
   };
-
-  // productAddHandler method is used to add count of the particular product in this cart
-  const productAddHandler = (id) => {
-    let itemIndex = cart?.findIndex((item) => item.id == id);
-    setCart((prev) => {
-      return prev.map((item, index) => {
-        if (index === itemIndex) {
-          return { ...item, count: item.count + 1 };
-        } else {
-          return { ...item };
-        }
-      });
-    });
-  };
-
-  //   productDecreaseHandler method is used to decrease the  count of the particular product in this cart
-
-  //   const productDecreaseHandler = (id) => {
-  //     let itemIndex = cart.findIndex((item) => item.id == id);
-  //     setCart((prev) => {
-  //       return prev.map((item, index) => {
-  //         if (index === itemIndex) {
-  //           return { ...item, count: item.count - 1 };
-  //         } else {
-  //           return { ...item };
-  //         }
-  //       });
-  //     });
-  //   };
 
   //   productCount method is used to return number of items of a particualr product in this cart
   let productCount = (id) => {
@@ -64,11 +27,13 @@ function Product({ id, title, image, cart, setCart, price }) {
       <h2>{title}</h2>
       <h3>{price}</h3>
       {isInCart(id) ? (
-        <button onClick={() => productAddHandler(id)}>
-          <span>{productCount(id)} </span>Added to cart
+        <button onClick={() => dispatch(addProductsToCart(product.id))}>
+          <span>{productCount(id)}</span>Added to cart
         </button>
       ) : (
-        <button onClick={addToCartHandler}>Add to cart</button>
+        <button onClick={() => dispatch(addToCart(product))}>
+          Add to cart
+        </button>
       )}
     </div>
   );

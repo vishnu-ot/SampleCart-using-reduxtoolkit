@@ -1,12 +1,12 @@
 import React from "react";
 import products from "../../api/api.json";
 import Product from "../Product/Product";
-import './ProductGallary.css'
-function ProductGallary({cart,setCart}) {
+import "./ProductGallary.css";
+function ProductGallary() {
   return (
     <div className="product-gallary">
       {products.map((product) => {
-        return <Product {...product} cart={cart} setCart={setCart}/>;
+        return <Product product={product}  />;
       })}
     </div>
   );
